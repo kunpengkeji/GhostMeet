@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ghostmeet/videoGrid.dart';
 import 'my_info.dart';
-import 'emptyPage.dart';
-import 'videoGrid.dart';
+import 'dicePage.dart';
+import 'messageScreen.dart';
+import 'friendCirclePage.dart';
 // import 'message_page.dart';
 // import 'discover_page.dart';
 
@@ -18,9 +20,9 @@ class _BottomNavigationBarDemoState extends State<BottomNavigationBarDemo> {
     // HomePage(),
     // MessagePage(),
     // DiscoverPage(),
-    VideoGrid(),
-    EmptyPage(),
-    EmptyPage(),
+    DicePage(),
+    MessageScreen(),
+    FriendCirclePage(),
     ProfilePage(), //个人主页
   ];
 

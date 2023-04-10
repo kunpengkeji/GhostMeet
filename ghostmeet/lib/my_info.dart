@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -47,23 +49,12 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  final List<int> data = List.generate(30, (_) => Random().nextInt(30));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            // TODO: 点击设置按钮后的操作
-          },
-        ),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -71,7 +62,7 @@ class ProfilePage extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                    'https://pbs.twimg.com/profile_banners/1498198918672580608/1654770878/1500x500'),
+                    'https://fibochain.s3-ap-east-1.amazonaws.com/0/wKOO2rOtkNrxhVfT0aj8r94SW_tmp_870525ef9a03377a350c7f292254e1d93cad76897e73187d.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -86,72 +77,73 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     SizedBox(height: 50),
                     Align(
-                      alignment: Alignment.center,
+                      alignment:
+                          Alignment.center, // set alignment to bottom center
                       child: InkWell(
                         onTap: () {
                           _showModalBottomSheet(context);
                         },
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            'https://fibochain.s3-ap-east-1.amazonaws.com/0/wKOO2rOtkNrxhVfT0aj8r94SW_tmp_870525ef9a03377a350c7f292254e1d93cad76897e73187d.jpg',
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 20), // add some top padding
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              'https://fibochain.s3-ap-east-1.amazonaws.com/0/wKOO2rOtkNrxhVfT0aj8r94SW_tmp_870525ef9a03377a350c7f292254e1d93cad76897e73187d.jpg',
+                            ),
+                            radius: 50,
                           ),
-                          radius: 50,
                         ),
                       ),
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Ed',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Flutter Developer',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.location_on,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    'New York, USA',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    SizedBox(height: 10),
+                    Center(
+                      child: Container(
+                        child: Text("Ed"),
+                      ),
                     ),
+                    SizedBox(height: 30),
                   ],
                 ),
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: Container(
+              child: Text("Message deleted"),
+            ),
+          ),
+          Center(
+            child: Container(
+              width: 300,
+              height: 240,
+              child: GridView.count(
+                crossAxisCount: 7,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                children: List.generate(30, (index) {
+                  final count = data[index % data.length];
+                  final color = Color.lerp(
+                    Colors.white,
+                    Colors.green[900]!,
+                    count / 30,
+                  )!;
+                  final size = count / 30 * 40;
+                  return Container(
+                    width: size,
+                    height: size,
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  );
+                }),
               ),
             ),
           ),
